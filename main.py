@@ -34,29 +34,31 @@ def slack_warning(msg):
 
     return None
 
+while True:
 
-#一個一個印出要的資料
-for title in ment:
-    print(title.a.string)  #取得文章標題
-    print("https://www.darencademy.com/"+title.a.get("href"))  #取得文章連結
-    
+    #一個一個印出要的資料
+    for title in ment:
+        print(title.a.string)  #取得文章標題
+        print("https://www.darencademy.com/"+title.a.get("href"))  #取得文章連結
+        
 
-    URL = "https://www.darencademy.com/"+title.a.get("href")
+        URL = "https://www.darencademy.com/"+title.a.get("href")
 
-    #請求網站
-    r = requests.get(URL)
+        #請求網站
+        r = requests.get(URL)
 
-    print(r.status_code)
-    print(r.elapsed.total_seconds())
-
-    
-    #檢查回應。如果不是200則發出告警
-    if r.status_code  != 200:
-        slack_warning("HTTP Status 異常!")
         print(r.status_code)
-    
-    #檢查回應時間。如果超過1秒則發出告警
-    elif r.elapsed.total_seconds() > 1:
-        slack_warning("回應超過 1 秒!")
         print(r.elapsed.total_seconds())
+
+        
+        #檢查回應。如果不是200則發出告警
+        if r.status_code  != 200:
+            slack_warning("HTTP Status 異常!")
+            print(r.status_code)
+        
+        #檢查回應時間。如果超過1秒則發出告警
+        elif r.elapsed.total_seconds() > 1:
+            slack_warning("回應超過 1 秒!")
+            print(r.elapsed.total_seconds())
+
 
